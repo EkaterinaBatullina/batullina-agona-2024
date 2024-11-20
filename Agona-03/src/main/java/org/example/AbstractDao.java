@@ -18,7 +18,7 @@ public abstract class AbstractDao<T> {
 
     abstract boolean deleteById(Long id);
 
-    abstract boolean save(Student student);
+    abstract void save(Student student);
 
     abstract List<String> getCoursesForStudent(Long id);
 
