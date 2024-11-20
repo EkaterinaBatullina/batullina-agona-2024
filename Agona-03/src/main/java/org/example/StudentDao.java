@@ -83,7 +83,7 @@ public class StudentDao extends AbstractDao<Student> {
         }
     }
 
-    boolean save(Student entity) {
+    void save(Student entity) {
         try {
             PreparedStatement statement = getConnection().map(connection -> {
                 try {
@@ -99,7 +99,9 @@ public class StudentDao extends AbstractDao<Student> {
                 }
             }).orElseThrow(StudentException::new);
             int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0;
+            if (rowsAffected <= 0) {
+                throw new StudentException("Save failed");
+            }
         } catch (SQLException e) {
             throw new StudentException("Error executing save query");
         }
