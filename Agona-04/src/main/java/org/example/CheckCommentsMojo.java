@@ -42,8 +42,8 @@ public class CheckCommentsMojo extends AbstractMojo {
         try (BufferedReader reader = Files.newBufferedReader(file.toPath())) {
             String currentLine;
             while ((currentLine = reader.readLine()) != null) {
-                if (currentLine.matches(".*\\b(" + commentPattern + ")\\b.*")) {
-                    if (!currentLine.matches(".*\\b(" + commentPattern + ")\\b\\s" + taskPattern + "\\b.*")) {
+                if (currentLine.matches(".*\\b(%s)\\b.*".formatted(commentPattern))) {
+                    if (!currentLine.matches(".*\\b(%s)\\b\\s%s\\b.*".formatted(commentPattern, taskPattern))) {
                         throw new MojoExecutionException("Некорректный комментарий в файле %s: %s".formatted(file.getName(), currentLine));
                     }
                 }
