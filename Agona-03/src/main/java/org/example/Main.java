@@ -1,10 +1,5 @@
 package org.example;
 
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import java.sql.Date;
 import java.util.List;
 
@@ -44,23 +39,23 @@ public class Main {
             System.out.println("Студенты не найдены");
         } else {
             students.forEach(student -> {
-                System.out.println("Name: " + student.name());
+                System.out.println("Name: %s".formatted(student.name()));
             });
         }
-        //Все студенты:
-        //Name: John Smith
-        //Name: Mary Brown
-        //Name: Robert Jones
+        /*Все студенты:
+        Name: John Smith
+        Name: Mary Brown
+        Name: Robert Jones*/
 
         System.out.println("Поиск студента с ID 100400:");
         studentDao.findById("100400").ifPresentOrElse(
                 student -> {
-                    System.out.println("Name: " + student.name());
+                    System.out.println("Name: %s".formatted(student.name()));
                 },
                 () -> System.out.println("Студент с ID 100400 не найден")
         );
-        //Поиск студента с ID 100400:
-        //Name: Mary Brown
+        /*Поиск студента с ID 100400:
+        Name: Mary Brown*/
 
         System.out.println("Удаление студента с ID 100350:");
         boolean deleted = studentDao.deleteById(100350L);
@@ -69,8 +64,8 @@ public class Main {
         } else {
             System.out.println("Ошибка удаления");
         }
-        //Удаление студента с ID 100350:
-        //Студент успешно удален
+        /*Удаление студента с ID 100350:
+        Студент успешно удален*/
 
         System.out.println("Курсы для студента с ID 100400:");
         List<String> courses = studentDao.getCoursesForStudent(100400L);
@@ -81,10 +76,10 @@ public class Main {
                 System.out.println(course);
             });
         }
-        //Курсы для студента с ID 100400:
-        //Mathematics
-        //Physics
-        //Computer Science
+        /*Курсы для студента с ID 100400:
+        Mathematics
+        Physics
+        Computer Science*/
     }
 
 }

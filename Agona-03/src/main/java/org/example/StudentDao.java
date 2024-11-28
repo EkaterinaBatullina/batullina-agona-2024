@@ -1,10 +1,5 @@
 package org.example;
 
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,9 +13,12 @@ public class StudentDao extends AbstractDao<Student> {
     private static final String SQL_FIND_ALL = "SELECT * FROM student";
     private static final String SQL_INSERT = "INSERT INTO student(name, birth_date, age, gpa, is_active) VALUES (?, ?, ?, ?, ?)";
     private static final String SQL_DELETE = "DELETE FROM student WHERE id = ?";
-    private static final String SQL_FIND_COURSES_FOR_STUDENT = "SELECT c.name FROM course c " +
-            "JOIN student_course sc ON c.id = sc.course_id " +
-            "WHERE sc.student_id = ?";
+    private static final String SQL_FIND_COURSES_FOR_STUDENT = """ 
+        SELECT c.name 
+        FROM course c
+        JOIN student_course sc ON c.id = sc.course_id
+        WHERE sc.student_id = ? 
+    """;
 
     public StudentDao(RowMapper<Student> mapper) {
         this.mapper = mapper;
@@ -54,14 +52,14 @@ public class StudentDao extends AbstractDao<Student> {
                     stmt.setLong(1, Long.parseLong(id));
                     return stmt;
                 } catch (SQLException e) {
-                    throw new StudentException("Error preparing findById statement for id = " + id);
+                    throw new StudentException("Error preparing findById statement for id = %s".formatted (id));
                 }
             }).orElseThrow(StudentException::new);
             ResultSet result = statement.executeQuery();
             return result.next() ?
                     Optional.ofNullable(mapper.mapRow(statement.executeQuery())) : Optional.empty();
         } catch (SQLException e) {
-            throw new StudentException("Error executing findById query for id = " + id);
+            throw new StudentException("Error executing findById query for id = %s".formatted (id));
         }
     }
 
@@ -79,7 +77,7 @@ public class StudentDao extends AbstractDao<Student> {
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            throw new StudentException("Error executing deleteById query for id = " + id);
+            throw new StudentException("Error executing deleteById query for id = %s".formatted (id));
         }
     }
 
