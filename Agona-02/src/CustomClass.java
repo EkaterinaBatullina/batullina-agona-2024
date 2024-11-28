@@ -115,7 +115,7 @@ public class CustomClass {
     }
 
 
-    private  List<String> getInterfacesAndAbstractClasses(Class<?> actualClass) {
+    private List<String> getInterfacesAndAbstractClasses(Class<?> actualClass) {
         if (actualClass== null) {
             throw new IllegalArgumentException("Class cannot be null");
         }
@@ -128,7 +128,7 @@ public class CustomClass {
             if (Modifier.isAbstract(actualClass.getModifiers())) {
                 interfacesAndAbstractClasses.add(actualClass.getName());
             }
-            actualClass =  actualClass.getSuperclass();
+            actualClass = actualClass.getSuperclass();
         }
         return interfacesAndAbstractClasses;
     }
