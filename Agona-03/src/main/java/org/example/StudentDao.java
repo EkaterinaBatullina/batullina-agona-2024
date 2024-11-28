@@ -52,14 +52,14 @@ public class StudentDao extends AbstractDao<Student> {
                     stmt.setLong(1, Long.parseLong(id));
                     return stmt;
                 } catch (SQLException e) {
-                    throw new StudentException("Error preparing findById statement for id = %s".formatted (id));
+                    throw new StudentException("Error preparing findById statement for id = %s".formatted(id));
                 }
             }).orElseThrow(StudentException::new);
             ResultSet result = statement.executeQuery();
             return result.next() ?
                     Optional.ofNullable(mapper.mapRow(statement.executeQuery())) : Optional.empty();
         } catch (SQLException e) {
-            throw new StudentException("Error executing findById query for id = %s".formatted (id));
+            throw new StudentException("Error executing findById query for id = %s".formatted(id));
         }
     }
 
@@ -77,7 +77,7 @@ public class StudentDao extends AbstractDao<Student> {
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            throw new StudentException("Error executing deleteById query for id = %s".formatted (id));
+            throw new StudentException("Error executing deleteById query for id = %s".formatted(id));
         }
     }
 
