@@ -64,12 +64,12 @@ public class BaseUserService implements UserService {
     public UserResponse patch(UUID uuid, UserRequest userRequest) {
         UserEntity userEntity = repository.findById(uuid)
                 .orElseThrow(() -> new UserNotFoundException(uuid));
-        UserEntity updatedUserEntity = userEntity.builder()
+        userEntity = userEntity.builder()
                 .name(userRequest.name() != null ? userRequest.name() : userEntity.getName())
                 .phone(userRequest.phone() != null ? userRequest.phone() : userEntity.getPhone())
                 .build();
-        repository.update(updatedUserEntity);
-        return mapper.toResponse(updatedUserEntity);
+        repository.update(userEntity);
+        return mapper.toResponse(userEntity);
     }
 }
 
