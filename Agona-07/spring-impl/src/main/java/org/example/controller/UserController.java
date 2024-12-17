@@ -33,8 +33,9 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public UserResponse update(UUID id, UserRequest userRequest) {
-        return service.update(id, userRequest);
+    public ResponseEntity<Void> update(UUID id, UserRequest userRequest) {
+        service.update(id, userRequest);
+        return ResponseEntity.noContent().build();
     }
 
     @Override
@@ -44,7 +45,8 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public UserResponse patch(UUID id, UserRequest userRequest) {
-        return service.patch(id, userRequest);
+    public ResponseEntity<Void> patch(UUID id, UserRequest userRequest) {
+        service.patch(id, userRequest);
+        return ResponseEntity.noContent().build();
     }
 }

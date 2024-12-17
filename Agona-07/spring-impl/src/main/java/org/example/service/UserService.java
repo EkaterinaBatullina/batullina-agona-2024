@@ -16,7 +16,7 @@ public interface UserService {
 
     void delete(UUID uuid);
 
-    UserResponse update(UUID uuid, UserRequest userRequest);
+    void update(UUID uuid, UserRequest userRequest);
 
-    UserResponse patch(UUID uuid, UserRequest userRequest);
+    void patch(UUID uuid, UserRequest userRequest);
 }

@@ -26,7 +26,7 @@ public interface UserApi {
 
     @PutMapping("/{user-id}")
     @ResponseStatus(HttpStatus.OK)
-    UserResponse update(@PathVariable("user-id") UUID uuid, @RequestBody UserRequest userRequest);
+    ResponseEntity<Void> update(@PathVariable("user-id") UUID uuid, @RequestBody UserRequest userRequest);
 
     @DeleteMapping("/{user-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -34,6 +34,6 @@ public interface UserApi {
 
     @PatchMapping("/{user-id}")
     @ResponseStatus(HttpStatus.OK)
-    UserResponse patch(@PathVariable("user-id") UUID uuid, @RequestBody UserRequest userRequest);
+    ResponseEntity<Void> patch(@PathVariable("user-id") UUID uuid, @RequestBody UserRequest userRequest);
 }
 

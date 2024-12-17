@@ -49,7 +49,7 @@ public class BaseUserService implements UserService {
     }
 
     @Override
-    public UserResponse update(UUID uuid, UserRequest userRequest) {
+    public void update(UUID uuid, UserRequest userRequest) {
         UserEntity userEntity = repository.findById(uuid)
                 .orElseThrow(() -> new UserNotFoundException(uuid));
         userEntity = userEntity.builder()
@@ -57,11 +57,10 @@ public class BaseUserService implements UserService {
                 .phone(userRequest.phone())
                 .build();
         repository.update(userEntity);
-        return mapper.toResponse(userEntity);
     }
 
     @Override
-    public UserResponse patch(UUID uuid, UserRequest userRequest) {
+    public void patch(UUID uuid, UserRequest userRequest) {
         UserEntity userEntity = repository.findById(uuid)
                 .orElseThrow(() -> new UserNotFoundException(uuid));
         userEntity = userEntity.builder()
@@ -69,7 +68,6 @@ public class BaseUserService implements UserService {
                 .phone(userRequest.phone() != null ? userRequest.phone() : userEntity.getPhone())
                 .build();
         repository.update(userEntity);
-        return mapper.toResponse(userEntity);
     }
 }
 
