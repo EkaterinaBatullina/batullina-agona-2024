@@ -25,15 +25,12 @@ public interface UserApi {
     UUID create(@RequestBody UserRequest userRequest);
 
     @PutMapping("/{user-id}")
-    @ResponseStatus(HttpStatus.OK)
     ResponseEntity<Void> update(@PathVariable("user-id") UUID uuid, @RequestBody UserRequest userRequest);
 
     @DeleteMapping("/{user-id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     ResponseEntity<Void> delete(@PathVariable("user-id") UUID uuid);
 
     @PatchMapping("/{user-id}")
-    @ResponseStatus(HttpStatus.OK)
     ResponseEntity<Void> patch(@PathVariable("user-id") UUID uuid, @RequestBody UserRequest userRequest);
 }
 
