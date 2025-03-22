@@ -19,7 +19,7 @@ public class RabbitMQTest {
     public void testDirectExchange() {
         amqpTemplate.convertAndSend("direct-exchange", "direct-routing-key1", "Hello, RabbitMQ!");
         Object response = rabbitTemplate.receiveAndConvert("direct-queue1");
-        System.out.println("Received from direct-queue1: " + response);
+        System.out.println("Received from direct-queue1: %s".formatted(response));
         /*Received from direct-queue1: Hello, RabbitMQ!*/
     }
 
@@ -27,7 +27,7 @@ public class RabbitMQTest {
     public void testTopicExchange() {
         amqpTemplate.convertAndSend("topic-exchange", "test1.topic1.test1", "Hello, RabbitMQ!");
         Object response = rabbitTemplate.receiveAndConvert("topic-queue1");
-        System.out.println("Received from topic-queue1: " + response);
+        System.out.println("Received from topic-queue1: %s".formatted(response));
         /*Received from topic-queue1: Hello, RabbitMQ!*/
     }
 
@@ -35,7 +35,7 @@ public class RabbitMQTest {
     public void testDlq() {
         amqpTemplate.convertAndSend("main-queue","Invalid message");
         Object dlqMessage = rabbitTemplate.receiveAndConvert("dlq");
-        System.out.println("Received from dlq: " + dlqMessage);
+        System.out.println("Received from dlq: %s".formatted(dlqMessage));
         /*Received from dlq: Invalid message*/
     }
 }
