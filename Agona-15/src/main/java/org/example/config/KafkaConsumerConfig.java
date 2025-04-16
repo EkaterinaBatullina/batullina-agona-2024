@@ -1,10 +1,11 @@
 package org.example.config;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.example.config.property.KafkaConsumerProperties;
 import org.example.dto.StarshipDto;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
@@ -18,9 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@RequiredArgsConstructor
 public class KafkaConsumerConfig {
-    @Value("${spring.kafka.consumer.group-id}")
-    private String kafkaGroupId;
+    private final KafkaConsumerProperties kafkaProperties;
 
     @Bean
     public Map<String, Object> stringConsumerConfig() {
@@ -28,7 +29,7 @@ public class KafkaConsumerConfig {
         consumerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class);
         consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaGroupId);
+        consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaProperties.getGroupId());
         consumerConfig.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
         return consumerConfig;
     }
@@ -41,7 +42,7 @@ public class KafkaConsumerConfig {
         consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         consumerConfig.put(JsonDeserializer.TRUSTED_PACKAGES, "org.example.dto");
         consumerConfig.put(JsonDeserializer.VALUE_DEFAULT_TYPE, StarshipDto.class.getName());
-        consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaGroupId);
+        consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaProperties.getGroupId());
         consumerConfig.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
         return consumerConfig;
     }
