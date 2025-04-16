@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.example.config.property.KafkaCommonProperties;
 import org.example.config.property.KafkaProducerProperties;
 import org.example.dto.StarshipDto;
 import org.springframework.context.annotation.Bean;
@@ -20,12 +21,13 @@ import java.util.Map;
 @Configuration
 @RequiredArgsConstructor
 public class KafkaProducerConfig {
+    private final KafkaCommonProperties commonProps;
     private final KafkaProducerProperties kafkaProperties;
 
     @Bean
     public Map<String, Object> stringProducerConfigs() {
         Map<String, Object> producerConfig = new HashMap<>();
-        producerConfig.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        producerConfig.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, commonProps.getBootstrapServers());
         producerConfig.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class);
         producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         producerConfig.put(ProducerConfig.CLIENT_ID_CONFIG, kafkaProperties.getClientId());
@@ -35,7 +37,7 @@ public class KafkaProducerConfig {
     @Bean
     public Map<String, Object> starshipDtoProducerConfigs() {
         Map<String, Object> producerConfig = new HashMap<>();
-        producerConfig.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        producerConfig.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, commonProps.getBootstrapServers());
         producerConfig.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class);
         producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         producerConfig.put(ProducerConfig.CLIENT_ID_CONFIG, kafkaProperties.getClientId());
