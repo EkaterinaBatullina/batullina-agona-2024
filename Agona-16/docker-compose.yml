@@ -10,6 +10,6 @@ services:
     
   user-service:
     build:
-      context: ./user-service
+      context: ./user-service/user-service-impl
     ports:
       - "8080:8080"
