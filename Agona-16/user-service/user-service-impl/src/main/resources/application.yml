@@ -1,6 +1,9 @@
+server:
+  port: 9090
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/agona_db
+    url: jdbc:postgresql://host.docker.internal:5432/agona_db
     username: Ekaterina
     password: eka_rina16
     driver-class-name: org.postgresql.Driver
@@ -9,10 +12,11 @@ spring:
   cloud:
     consul:
       discovery:
-        hostname: localhost
-        instance-id: user-service
+        hostname: host.docker.internal
+        service-name: user-service
+        instance-id: user-service-1
         health-check-path: /actuator/health
-      host: localhost
+      host: host.docker.internal
       port: 8500
 
 management:
