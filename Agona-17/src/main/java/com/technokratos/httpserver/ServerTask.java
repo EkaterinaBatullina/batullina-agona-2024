@@ -23,7 +23,7 @@ public class ServerTask {
 
     private static void handleRequest(HttpExchange exchange) {
         try {
-            System.out.println("Handling request in thread: " + Thread.currentThread());
+            System.out.println("Handling request in thread: %s".formatted(Thread.currentThread()));
             String response = "Hello from virtual thread!";
             exchange.sendResponseHeaders(200, response.getBytes().length);
             try (OutputStream outputStream = exchange.getResponseBody()) {

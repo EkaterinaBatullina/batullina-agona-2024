@@ -8,7 +8,7 @@ public class ScheduledExecutorServiceTask {
 
     public static void main(String[] args) {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        Runnable task = () -> System.out.println("Task is running: " + System.currentTimeMillis());
+        Runnable task = () -> System.out.println("Task is running: %s".formatted(System.currentTimeMillis()));
         scheduler.scheduleAtFixedRate(task, 0, 3, TimeUnit.SECONDS);
         scheduler.schedule(() -> {
             System.out.println("Stopping the scheduler");

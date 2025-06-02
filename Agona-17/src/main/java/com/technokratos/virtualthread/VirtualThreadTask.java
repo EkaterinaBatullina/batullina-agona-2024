@@ -13,7 +13,7 @@ public class VirtualThreadTask {
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
-                System.out.println("Virtual thread ID: " + id);
+                System.out.println("Virtual thread ID: %s".formatted(id));
             });
         }
         for (Thread thread : threads) {

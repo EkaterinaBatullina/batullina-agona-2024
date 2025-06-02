@@ -14,7 +14,7 @@ public class SortTask implements Callable<int[]> {
     public int[] call() {
         int[] sortedArray = Arrays.copyOf(originalArray, originalArray.length);
         Arrays.sort(sortedArray);
-        System.out.println("Sorted array: " + Arrays.toString(sortedArray));
+        System.out.println("Sorted array: %s".formatted(Arrays.toString(sortedArray)));
         return sortedArray;
     }
 }

@@ -7,13 +7,13 @@ public class SemaphoreTask {
 
     public static void main(String[] args) {
         for (int i = 1; i <= 6; i++) {
-            final String carName = "Car-" + i;
+            final String carName = "Car-%s".formatted(i);
             new Thread(() -> {
                 try {
-                    System.out.println(carName + " is trying to park");
+                    System.out.println("%s is trying to park".formatted(carName));
                     parkingSpots.acquire();
-                    System.out.println(carName + " has parked");
-                    System.out.println(carName + " is leaving the parking");
+                    System.out.println("%s has parked".formatted(carName));
+                    System.out.println("%s is leaving the parking".formatted(carName));
                     parkingSpots.release();
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();

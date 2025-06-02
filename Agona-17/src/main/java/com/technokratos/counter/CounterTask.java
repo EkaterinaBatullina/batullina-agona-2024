@@ -20,6 +20,6 @@ public class CounterTask {
                 Thread.currentThread().interrupt();
             }
         }
-        System.out.println("Final counter value: " + counter.getCounter());
+        System.out.println("Final counter value: %s".formatted(counter.getCounter()));
     }
 }

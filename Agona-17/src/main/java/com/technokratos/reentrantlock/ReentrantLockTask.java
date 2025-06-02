@@ -21,8 +21,8 @@ public class ReentrantLockTask {
                 Thread.currentThread().interrupt();
             }
         }
-        System.out.println("FirstAccount balance: " + firstAccount.getBalance());
-        System.out.println("SecondAccount balance: " + secondAccount.getBalance());
+        System.out.println("FirstAccount balance: %s".formatted(firstAccount.getBalance()));
+        System.out.println("SecondAccount balance:  %s".formatted(secondAccount.getBalance()));
     }
 
     public static void transfer(Account source, Account target, int amount) {
@@ -36,7 +36,7 @@ public class ReentrantLockTask {
             if (source.getBalance() >= amount) {
                 source.withdraw(amount);
                 target.deposit(amount);
-                System.out.println("Transfer of " + amount + " completed");
+                System.out.println("Transfer of %s completed".formatted(amount));
             } else {
                 System.out.println("Insufficient funds for transfer");
             }

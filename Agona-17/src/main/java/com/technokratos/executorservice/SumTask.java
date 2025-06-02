@@ -15,7 +15,7 @@ public class SumTask implements Callable<Integer> {
         for (int number : numbers) {
             sum += number;
         }
-        System.out.println("Sum: " + sum);
+        System.out.println("Sum: %s".formatted(sum));
         return sum;
     }
 }

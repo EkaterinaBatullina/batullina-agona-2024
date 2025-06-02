@@ -15,8 +15,8 @@ public class ExecutorServiceTask {
             Future<Integer> sumFuture = executor.submit(sumTask);
             int[] sortedResult = sortFuture.get();
             int sumResult = sumFuture.get();
-            System.out.println("Sorted result: " + Arrays.toString(sortedResult));
-            System.out.println("Sum result: " + sumResult);
+            System.out.println("Sorted result: %s".formatted(Arrays.toString(sortedResult)));
+            System.out.println("Sum result: %s".formatted(sumResult));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         } catch (ExecutionException e) {

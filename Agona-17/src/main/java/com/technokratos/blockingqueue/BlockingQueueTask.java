@@ -11,7 +11,7 @@ public class BlockingQueueTask {
             try {
                 for (int i = 1; i <= 10; i++) {
                     queue.put(i);
-                    System.out.println("Producer: put " + i);
+                    System.out.println("Producer: put %s".formatted(i));
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -20,7 +20,7 @@ public class BlockingQueueTask {
         Thread consumer = new Thread(() -> {
             try {
                 for (int i = 1; i <= 10; i++) {
-                    System.out.println("Consumer: take " + queue.take());
+                    System.out.println("Consumer: take %s".formatted(queue.take()));
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
