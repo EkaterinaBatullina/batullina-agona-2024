@@ -1,13 +1,15 @@
 package com.technokratos.counter;
 
-public class Counter {
-    private int counter;
+import java.util.concurrent.atomic.AtomicInteger;
 
-    public synchronized void increment() {
-        counter++;
+public class Counter {
+    private final AtomicInteger counter = new AtomicInteger(0);
+
+    public void increment() {
+        counter.incrementAndGet();
     }
 
     public int getCounter() {
-        return counter;
+        return counter.get();
     }
 }
