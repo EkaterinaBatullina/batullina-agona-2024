@@ -12,17 +12,32 @@ public class Account {
     }
 
     public void deposit(int amount) {
-        balance += amount;
+        lock.lock();
+        try {
+            balance += amount;
+        } finally {
+            lock.unlock();
+        }
     }
 
     public void withdraw(int amount) {
-        if (balance >= amount) {
-            balance -= amount;
+        lock.lock();
+        try {
+            if (balance >= amount) {
+                balance -= amount;
+            }
+        } finally {
+            lock.unlock();
         }
     }
 
     public int getBalance() {
-        return balance;
+        lock.lock();
+        try {
+            return balance;
+        } finally {
+            lock.unlock();
+        }
     }
 
     public Lock getLock() {
