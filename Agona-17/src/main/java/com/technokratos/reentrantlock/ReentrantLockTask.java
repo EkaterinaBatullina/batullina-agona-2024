@@ -33,6 +33,13 @@ public class ReentrantLockTask {
 
         while (true) {
             try {
+
+                /*
+                 * Пытаемся захватить оба lock'а с ограниченным временем ожидания.
+                 *
+                 * Если второй lock недоступен, освобождаем уже захваченный ресурс
+                 * и повторяем попытку, избегая взаимной блокировки (deadlock).
+                 */
                 if (sourceLock.tryLock(50, TimeUnit.MILLISECONDS)) {
                     try {
                         if (targetLock.tryLock(50, TimeUnit.MILLISECONDS)) {
@@ -54,6 +61,10 @@ public class ReentrantLockTask {
                     }
                 }
 
+                /*
+                 * Небольшая пауза перед повторной попыткой захвата lock'ов,
+                 * чтобы избежать активного ожидания.
+                 */
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
