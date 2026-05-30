@@ -4,6 +4,16 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class SemaphoreTask {
+
+    /*
+     * Semaphore поддерживает внутренний счётчик доступных ресурсов.
+     *
+     * acquire() уменьшает счетчик, release() увеличивает
+     * Нулевой счетчик заставляет поток ожидать освобождения места.
+     *
+     * Режим fairness=true старается выдавать доступ
+     * ожидающим потокам в порядке FIFO.
+     */
     private static final Semaphore parkingSpots = new Semaphore(3, true);
     private static final ReentrantLock logLock = new ReentrantLock();
 
@@ -31,6 +41,11 @@ public class SemaphoreTask {
                             logLock.unlock();
                         }
                     } finally {
+
+                        /*
+                         * После завершения работы возвращаем разрешение,
+                         * иначе другие потоки могут навсегда потерять доступ к ресурсу.
+                         */
                         parkingSpots.release();
                     }
 

@@ -19,6 +19,14 @@ public class ServerTask {
             throw new RuntimeException("Failed to start server network stack", e);
         }
 
+        /*
+         * Каждый входящий HTTP-запрос обрабатывается в отдельном
+         * виртуальном потоке.
+         *
+         * Такой подход позволяет масштабировать большое количество
+         * одновременно ожидающих запросов без создания отдельного
+         * платформенного потока для каждого клиента.
+         */
         server.createContext("/", exchange ->
                 Thread.startVirtualThread(() -> handleRequest(exchange))
         );
@@ -54,6 +62,11 @@ public class ServerTask {
                 logLock.unlock();
             }
         } finally {
+
+            /*
+             * Освобождаем ресурсы HTTP-обмена независимо от результата
+             * обработки запроса.
+             */
             exchange.close();
         }
     }

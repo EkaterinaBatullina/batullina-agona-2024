@@ -24,7 +24,16 @@ public class ScheduledExecutorServiceTask {
                     throw new RuntimeException("Simulated network failure");
                 }
 
-            } catch (Throwable t) {
+            }
+
+            /*
+             * Необработанное исключение может остановить дальнейшие
+             * запуски периодической задачи.
+             *
+             * Перехватываем ошибку внутри Runnable, чтобы планировщик
+             * продолжил выполнять следующие запуски.
+             */
+            catch (Throwable t) {
                 logLock.lock();
                 try {
                     System.err.println("ALERT: Task failed but scheduler survived! Reason: " + t.getMessage());
@@ -34,6 +43,13 @@ public class ScheduledExecutorServiceTask {
             }
         };
 
+        /*
+         * Следующий запуск планируется через 3 секунды
+         * после завершения предыдущего выполнения задачи.
+         *
+         * Таким образом задержка отсчитывается от конца,
+         * а не от начала выполнения.
+         */
         scheduler.scheduleWithFixedDelay(task, 0, 3, TimeUnit.SECONDS);
 
         scheduler.schedule(() -> {
@@ -43,6 +59,11 @@ public class ScheduledExecutorServiceTask {
             } finally {
                 logLock.unlock();
             }
+
+            /*
+             * Запрещает приём новых задач, но позволяет корректно
+             * завершить уже запланированные выполнения.
+             */
             scheduler.shutdown();
         }, 15, TimeUnit.SECONDS);
     }
