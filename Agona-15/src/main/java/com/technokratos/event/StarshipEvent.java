@@ -1,4 +1,4 @@
-package org.example.dto;
+package com.technokratos.event;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StarshipDto {
+public class StarshipEvent {
     private String name;
     private String type;
 }
