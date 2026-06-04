@@ -7,8 +7,8 @@ spring:
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      trusted-packages: com.technokratos.dto
-      type-mappings: starship:com.technokratos.event.StarshipEvent
+      trusted-packages: com.technokratos.event
+      type-mappings: starship:com.technokratos.event.StarshipEvent,string:java.lang.String
       enable-auto-commit: false
 
     producer:
